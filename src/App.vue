@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <DynamicForm :jsonData="formData" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import DynamicForm from './components/DynamicForm.vue'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    DynamicForm,
+  },
+  data() {
+    return {
+      formData: {
+        blocks: [
+          {
+            "token": "PERSON_NAME",
+            "type": "text",
+            "props": {
+              "title": "Enter your name",
+              "required": true,
+              "placeholder": "e.g. John Doe"
+            }
+          },
+          {
+            "token": "IS_PERSON_MINOR",
+            "type": "checkbox",
+            "props": {
+              "title": "Is the current person minor?",
+              "default": false
+            }
+          },
+          {
+            "token": "PERSON_DOB",
+            "type": "date",
+            "props": {
+              "title": "Enter your BOD",
+              "required": "IS_PERSON_MINOR",
+              "placeholder": "e.g. 01/01/2000"
+            }
+          }
+        ]
+      },
+    };
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
